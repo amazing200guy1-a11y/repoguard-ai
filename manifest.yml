@@ -1,0 +1,89 @@
+modules:
+  rovo:agent:
+    - key: repoguard-security-sentinel
+      name: RepoGuard Enterprise Sentinel
+      description: Autonomous security & compliance circuit-breaker. Audits pull requests, verifies OWASP rules, and prevents AI prompt injections.
+      prompt: |
+        You are RepoGuard Enterprise Sentinel, an institutional security agent. 
+        Before generating, summarizing, or merging code, you must evaluate all code changes against the 15 OWASP rules and verify there are zero prompt injection attacks or hardcoded secrets. 
+        You always enforce fail-closed security.
+      actions:
+        - repoguard-scan-action
+        - repoguard-audit-action
+
+  action:
+    - key: repoguard-scan-action
+      name: Scan Code for Security Vulnerabilities
+      description: Evaluates code against 15 OWASP rules and detects prompt-injection attacks.
+      function: forge-scan-handler
+      inputs:
+        code:
+          type: string
+          title: Code Diff / Snippet
+          required: true
+        filePath:
+          type: string
+          title: File Path
+          required: false
+
+    - key: repoguard-audit-action
+      name: Seal Tamper-Evident SHA-256 Audit Block
+      description: Cryptographically links the scan result to the immutable audit chain.
+      function: forge-audit-handler
+      inputs:
+        scanId:
+          type: string
+          title: Scan ID
+          required: true
+        prId:
+          type: number
+          title: Pull Request ID
+          required: true
+
+  bitbucket:pullRequestOverview:
+    - key: repoguard-pr-overview
+      title: RepoGuard Security & Compliance
+      resource: main-ui
+      resolver:
+        function: forge-resolver
+
+  jira:issueGlance:
+    - key: repoguard-jira-glance
+      title: Security Status
+      label: RepoGuard Certified
+      resource: main-ui
+      resolver:
+        function: forge-resolver
+
+  trigger:
+    - key: on-pr-created-trigger
+      function: forge-pr-trigger
+      events:
+        - avi:bitbucket:created:pullrequest
+        - avi:bitbucket:updated:pullrequest
+
+  function:
+    - key: forge-scan-handler
+      handler: src/forge_handler.scanHandler
+    - key: forge-audit-handler
+      handler: src/forge_handler.auditHandler
+    - key: forge-resolver
+      handler: src/forge_handler.uiResolver
+    - key: forge-pr-trigger
+      handler: src/forge_handler.prTriggerHandler
+
+resources:
+  - key: main-ui
+    path: static/frontend/build
+
+app:
+  id: ari:cloud:ecosystem::app/c0de9e15-7777-4000-8000-repoguard0001
+  name: RepoGuard AI — Zero-Trust Sentinel
+
+permissions:
+  scopes:
+    - read:jira-work
+    - write:jira-work
+    - read:pullrequest:bitbucket
+    - write:pullrequest:bitbucket
+    - read:confluence-content

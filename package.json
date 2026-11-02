@@ -1,0 +1,24 @@
+{
+  "name": "repoguard-ai",
+  "version": "1.0.0",
+  "description": "Enterprise Zero-Trust Security & Compliance Circuit-Breaker for Atlassian Rovo, Jira & Bitbucket (Codegeist 2026)",
+  "main": "src/forge_handler.js",
+  "scripts": {
+    "test": "node test/repoguard.test.js",
+    "mcp": "node src/mcp_server.js",
+    "start": "node src/server.js"
+  },
+  "keywords": [
+    "atlassian",
+    "forge",
+    "rovo",
+    "mcp",
+    "model-context-protocol",
+    "security",
+    "zero-trust",
+    "owasp",
+    "codegeist-2026"
+  ],
+  "author": "Usman Bamidele <usmanbamidele200@gmail.com>",
+  "license": "MIT"
+}
