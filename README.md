@@ -1,6 +1,8 @@
 # 🛡️ RepoGuard AI — Zero-Trust Security Sentinel
 
 [![Tests](https://img.shields.io/badge/tests-21%2F21%20pass-10B981?style=for-the-badge&logo=checkmarx)](https://github.com/amazing200guy1-a11y/repoguard-ai)
+[![Live Cockpit](https://img.shields.io/badge/Live-Cockpit-0052CC?style=for-the-badge)](https://amazing200guy1-a11y.github.io/repoguard-ai/dashboard.html)
+[![Demo Video](https://img.shields.io/badge/YouTube-Demo%20Video-FF0000?style=for-the-badge&logo=youtube)](https://youtu.be/R1tiHo8JxRk)
 [![Atlassian Forge](https://img.shields.io/badge/Atlassian-Forge%20Hosted-0052CC?style=for-the-badge&logo=atlassian)](https://codegeist2026.devpost.com/)
 [![MCP](https://img.shields.io/badge/MCP-Model%20Context%20Protocol-7DD3FC?style=for-the-badge)](https://modelcontextprotocol.io/)
 [![Zero Deps](https://img.shields.io/badge/dependencies-0%20npm-orange?style=for-the-badge)](https://nodejs.org)
